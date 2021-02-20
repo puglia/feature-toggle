@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	
+	<changeSet id="create_customer_feature" author="gianlucca.puglia">
+		<createTable tableName="customer_feature">
+			<column name="updated_on" type="TIMESTAMP"
+				defaultValueComputed="NOW()" />
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" unique="true"
+					primaryKeyName="pk_customer_feature" nullable="false" />
+			</column>
+			<column name="customer_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="feature_id" type="bigint">
+				<constraints nullable="false" 
+				foreignKeyName="fk_feature__customer_feature"
+					references="feature(id)"/>
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="insert_feature" author="gianlucca.puglia">
+		<insert  tableName="customer_feature">  
+	        <column  name="customer_id"  value="1"/>  
+	        <column  name="feature_id"  value="1"/> 
+    	</insert> 
+    	<insert tableName="customer_feature">  
+	        <column  name="customer_id"  value="1"/>  
+	        <column  name="feature_id"  value="2"/> 
+    	</insert> 
+	</changeSet>
+</databaseChangeLog>

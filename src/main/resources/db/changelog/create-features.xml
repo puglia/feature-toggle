@@ -2,4 +2,45 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 	
+	<changeSet id="create_feature" author="gianlucca.puglia">
+		<createTable tableName="feature">
+			<column name="updated_on" type="TIMESTAMP"
+				defaultValueComputed="NOW()" />
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" unique="true"
+					primaryKeyName="pk_feature" nullable="false" />
+			</column>
+			<column name="display_name" type="varchar(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="technical_name" type="varchar(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="expires_on" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="description" type="varchar(256)">
+				<constraints nullable="true" />
+			</column>
+			<column name="inverted" type="boolean">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="insert_feature" author="gianlucca.puglia">
+		<insert tableName="feature">  
+	        <column  name="display_name"  value="Dynamic Menus"/>  
+	        <column  name="technical_name"  value="dynamic-menu"/> 
+	        <column  name="expires_on"  value="null"/> 
+	        <column  name="description"  value="Show users menu items based on their role"/> 
+	        <column  name="inverted"  valueBoolean="true"/> 
+    	</insert> 
+    	<insert tableName="feature">  
+	        <column  name="display_name"  value="RSS Feed"/>  
+	        <column  name="technical_name"  value="rss-feed"/> 
+	        <column  name="expires_on"  value="null"/> 
+	        <column  name="description"  value="Provide users with a RSS Feed link"/> 
+	        <column  name="inverted"  valueBoolean="false"/> 
+    	</insert> 
+	</changeSet>
 </databaseChangeLog>
