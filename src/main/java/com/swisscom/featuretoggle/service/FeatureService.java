@@ -33,4 +33,10 @@ public class FeatureService {
 				.map(feature -> new FeatureVO(feature))
 				.collect(Collectors.toList());
 	}
+	
+	public List<FeatureVO> list(Long customerId) {
+		return StreamSupport.stream(featureRepository.findByCustomerId(customerId).spliterator(), false)
+				.map(feature -> new FeatureVO(feature))
+				.collect(Collectors.toList());
+	}
 }

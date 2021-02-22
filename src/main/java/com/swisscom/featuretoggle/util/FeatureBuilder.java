@@ -1,8 +1,11 @@
-package com.swisscom.featuretoggle.model;
+package com.swisscom.featuretoggle.util;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.swisscom.featuretoggle.model.Feature;
+import com.swisscom.featuretoggle.model.FeatureVO;
 
 public class FeatureBuilder {
 	protected Long id;

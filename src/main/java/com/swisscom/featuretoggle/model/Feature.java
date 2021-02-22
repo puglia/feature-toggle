@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.swisscom.featuretoggle.util.FeatureBuilder;
+
 @Entity(name = "Feature")
 @Table(name = "feature")
 public class Feature {

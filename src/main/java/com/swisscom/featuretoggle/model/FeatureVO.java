@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.swisscom.featuretoggle.util.FeatureBuilder;
+
 public class FeatureVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
