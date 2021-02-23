@@ -30,6 +30,7 @@ public class FeatureVO implements Serializable {
 		super();
 	}
 
+	//Easy constructor to convert JPA model to VO
 	public FeatureVO(Feature model) {
 		this.id = model.getId();
 		this.updatedOn = model.getUpdatedOn();
@@ -41,6 +42,7 @@ public class FeatureVO implements Serializable {
 		this.customers = model.getCustomers();
 	}
 	
+	//Convert Vo to JPA model
 	public FeatureVO(FeatureBuilder builder) {
 		this.id = builder.getId();
 		this.updatedOn = builder.getUpdatedOn();
