@@ -17,8 +17,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import com.swisscom.featuretoggle.model.FeatureVO;
+import com.swisscom.featuretoggle.model.PagingInfo;
 import com.swisscom.featuretoggle.service.FeatureService;
 import com.swisscom.featuretoggle.util.FeatureBuilder;
 
@@ -32,10 +35,13 @@ class FeatureServiceRESTTest {
 
 	@InjectMocks
 	private FeatureServiceREST featureService;
+	
+	private PagingInfo info;
 
 	@BeforeEach
 	public void init() {
 		MockitoAnnotations.openMocks(this);
+		info = new PagingInfo(1,10);
 	}
 
 	@DisplayName("Validate feature find by id - Success")
@@ -70,14 +76,14 @@ class FeatureServiceRESTTest {
 		mockedList.add(new FeatureBuilder().id(id).technicalName("test-name").buildVO());
 		mockedList.add(new FeatureBuilder().id(id + 1).technicalName("another-test-name").buildVO());
 
-		when(service.list(DEFAULT_ID)).thenReturn(mockedList);
+		when(service.list(DEFAULT_ID,info)).thenReturn(new PageImpl<FeatureVO>(mockedList));
 
-		Response response = featureService.list(DEFAULT_ID);
-		List<FeatureVO> searchedList = (List<FeatureVO>) response.getEntity();
+		Response response = featureService.list(DEFAULT_ID,info);
+		Page<FeatureVO> searchedList = (Page<FeatureVO>) response.getEntity();
 		
 		Assertions.assertEquals(response.getStatus(), 200, "Feature list not found");
 		Assertions.assertNotNull(searchedList);
-		Assertions.assertEquals(searchedList.size(), 2, "Too few elements found");
+		Assertions.assertEquals(searchedList.getNumberOfElements(), 2, "Too few elements found");
 	}
 
 	@DisplayName("Validate feature save - Success")

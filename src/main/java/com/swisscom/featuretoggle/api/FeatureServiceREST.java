@@ -8,6 +8,7 @@ import static com.swisscom.featuretoggle.util.ResponseFactory.serverError;
 import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,9 +18,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swisscom.featuretoggle.model.FeatureVO;
+import com.swisscom.featuretoggle.model.PagingInfo;
 import com.swisscom.featuretoggle.service.FeatureService;
 
 
@@ -63,9 +67,9 @@ public class FeatureServiceREST {
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listAll(@PathParam(value = "customer_id") Long customerId) {
+	public Response listAll(@BeanParam PagingInfo info) {
 		try {
-			return ok(featureService.list());
+			return ok(featureService.list(info));
 		} catch (Exception ex) {
 			return serverError(ex.getMessage());
 		}
@@ -74,9 +78,10 @@ public class FeatureServiceREST {
 	@GET
 	@Path("/list/{customer_id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response list(@PathParam(value = "customer_id") Long customerId) {
+	public Response list(@PathParam(value = "customer_id") Long customerId,
+			 @BeanParam PagingInfo info) { 
 		try {
-			return ok(featureService.list(customerId));
+			return ok(featureService.list(customerId,info));
 		} catch (Exception ex) {
 			return serverError(ex.getMessage());
 		}
