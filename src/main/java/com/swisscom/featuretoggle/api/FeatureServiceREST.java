@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.swisscom.featuretoggle.model.FeatureRequest;
 import com.swisscom.featuretoggle.model.FeatureVO;
 import com.swisscom.featuretoggle.model.PagingInfo;
 import com.swisscom.featuretoggle.service.FeatureService;
@@ -86,5 +87,21 @@ public class FeatureServiceREST {
 			return serverError(ex.getMessage());
 		}
 	}
+	
+	@POST
+	@Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response list(FeatureRequest request) { 
+		try {
+			return ok(featureService.queryFeatures(request));
+		} catch (Exception ex) {
+			return serverError(ex.getMessage());
+		}
+	}
+	
+	
+	
+	
 
 }
